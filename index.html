@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flores — Minecraft Client</title>
+<title>Flores Loader — Minecraft Mod Manager</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 
@@ -191,7 +191,6 @@ nav { display:flex; align-items:center; gap:4px; }
   position:relative; z-index:2;
 }
 
-/* left */
 .hero-left { display:flex; flex-direction:column; align-items:flex-start; }
 
 .hero-badge {
@@ -294,7 +293,7 @@ nav { display:flex; align-items:center; gap:4px; }
   color:var(--text);
 }
 
-/* right — animated flower orb */
+/* right — animated orb */
 .hero-right {
   display:flex; align-items:center; justify-content:center;
   animation:fadeUp .9s .3s both;
@@ -381,7 +380,6 @@ nav { display:flex; align-items:center; gap:4px; }
   grid-template-rows:auto;
   gap:10px;
 }
-/* card sizes */
 .bc { background:var(--bg1); border:1px solid var(--border); border-radius:6px;
   padding:30px 28px; position:relative; overflow:hidden;
   transition:background .25s, border-color .25s, transform .25s;
@@ -395,7 +393,6 @@ nav { display:flex; align-items:center; gap:4px; }
 }
 .bc:hover::before { opacity:1; }
 
-/* spans */
 .bc-hero    { grid-column:span 4; grid-row:span 2; padding:44px 40px; }
 .bc-tall    { grid-column:span 2; grid-row:span 2; }
 .bc-wide    { grid-column:span 3; }
@@ -430,12 +427,11 @@ nav { display:flex; align-items:center; gap:4px; }
   font-size:.58rem; letter-spacing:.12em; text-transform:uppercase;
   padding:3px 10px; border-radius:2px;
 }
-.t-bypass { background:rgba(0,232,204,.08); color:var(--cyan); }
-.t-pvp    { background:rgba(255,45,114,.08); color:var(--pink); }
+.t-perf   { background:rgba(0,232,204,.08); color:var(--cyan); }
+.t-game   { background:rgba(255,45,114,.08); color:var(--pink); }
 .t-util   { background:rgba(255,200,50,.08); color:var(--gold); }
 .t-vis    { background:rgba(176,110,255,.08); color:var(--purple); }
 
-/* side glow accent */
 .bc-hero::after {
   content:''; position:absolute; right:-60px; top:50%; transform:translateY(-50%);
   width:200px; height:200px; border-radius:50%;
@@ -446,112 +442,118 @@ nav { display:flex; align-items:center; gap:4px; }
 /* ════════════════════════════════════════
    MODULES — TERMINAL STYLE
 ═══════════════════════════════════════ */
-.modules-sec { padding:120px 0; }
+.modules-sec { padding:120px 0; background:linear-gradient(to bottom, transparent, rgba(61,255,144,.015), transparent); }
 .modules-layout {
-  display:grid; grid-template-columns:1fr 720px;
-  gap:80px; align-items:start;
+  display:grid; grid-template-columns:280px 1fr;
+  gap:64px; align-items:start;
 }
 .modules-info { position:sticky; top:100px; }
-.modules-info .sec-desc { margin-top:20px; margin-bottom:36px; }
 
 .mod-count-badge {
-  display:inline-flex; align-items:center; gap:10px;
-  padding:10px 18px; border-radius:4px;
-  border:1px solid var(--border);
-  background:rgba(61,255,144,.03);
-  font-family:'JetBrains Mono', monospace;
-  font-size:.75rem; color:var(--dim);
+  display:inline-flex; align-items:baseline; gap:8px;
+  margin-top:32px;
+  background:rgba(61,255,144,.05); border:1px solid rgba(61,255,144,.15);
+  border-radius:4px; padding:12px 20px;
 }
-.mod-count-badge strong { color:var(--green); font-size:1.4rem; font-weight:700; }
+.mod-count-badge strong {
+  font-family:'Barlow Condensed', sans-serif;
+  font-size:2.2rem; font-weight:900; color:var(--green);
+  line-height:1;
+}
+.mod-count-badge span {
+  font-family:'JetBrains Mono', monospace;
+  font-size:.62rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--dim2);
+}
 
-/* Terminal window */
+/* terminal window */
 .terminal {
-  background:#000d08;
-  border:1px solid rgba(61,255,144,.15);
+  background:var(--bg1);
+  border:1px solid rgba(61,255,144,.12);
   border-radius:8px; overflow:hidden;
-  box-shadow:0 24px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.03);
+  box-shadow:0 0 60px rgba(0,0,0,.5), 0 0 120px rgba(61,255,144,.04);
 }
 .term-bar {
-  background:#030f08;
-  padding:12px 18px;
   display:flex; align-items:center; gap:8px;
-  border-bottom:1px solid rgba(61,255,144,.1);
+  padding:12px 18px; background:rgba(255,255,255,.025);
+  border-bottom:1px solid rgba(255,255,255,.05);
 }
 .term-dot { width:10px; height:10px; border-radius:50%; }
-.term-dot:nth-child(1) { background:#ff5f56; }
-.term-dot:nth-child(2) { background:#ffbd2e; }
-.term-dot:nth-child(3) { background:#27c93f; }
+.term-dot:nth-child(1) { background:rgba(255,80,80,.6); }
+.term-dot:nth-child(2) { background:rgba(255,190,50,.6); }
+.term-dot:nth-child(3) { background:rgba(50,215,75,.6); }
 .term-path {
-  margin-left:auto; margin-right:auto;
   font-family:'JetBrains Mono', monospace;
-  font-size:.65rem; color:rgba(61,255,144,.4); letter-spacing:.1em;
+  font-size:.62rem; color:var(--dim2); letter-spacing:.08em; margin-left:6px;
 }
 
 .term-cats {
-  display:flex; overflow-x:auto; padding:0 18px;
-  border-bottom:1px solid rgba(61,255,144,.08);
-  gap:0;
+  display:flex; gap:2px; padding:12px 12px 0;
+  flex-wrap:wrap;
 }
-.term-cats::-webkit-scrollbar { display:none; }
 .tc {
   font-family:'JetBrains Mono', monospace;
-  font-size:.65rem; letter-spacing:.12em; text-transform:uppercase;
-  padding:12px 16px; color:var(--dim2); border:none;
-  background:transparent; cursor:none; white-space:nowrap;
-  border-bottom:2px solid transparent; transition:all .2s;
+  font-size:.62rem; letter-spacing:.1em; text-transform:uppercase;
+  padding:6px 14px; border-radius:3px; border:1px solid transparent;
+  background:transparent; color:var(--dim2); cursor:none;
+  transition:all .2s;
 }
-.tc:hover { color:var(--dim); }
-.tc.on { color:var(--green); border-bottom-color:var(--green); }
+.tc:hover { color:var(--text); background:rgba(255,255,255,.04); }
+.tc.on {
+  background:rgba(61,255,144,.08);
+  border-color:rgba(61,255,144,.2); color:var(--green);
+}
 
-.term-body { padding:20px; min-height:320px; }
+.term-body { padding:14px; min-height:260px; }
 .term-grid {
-  display:grid; grid-template-columns:repeat(3, 1fr);
-  gap:8px;
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
+  gap:6px;
 }
+
 .tmod {
-  padding:14px 16px; border-radius:5px;
-  background:rgba(61,255,144,.03);
-  border:1px solid rgba(61,255,144,.08);
-  cursor:none; transition:all .2s;
-  position:relative; display:none;
+  background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.05);
+  border-radius:4px; padding:12px 14px;
+  display:flex; flex-direction:column; gap:4px;
+  cursor:none; transition:background .2s, border-color .2s;
+  position:relative;
 }
-.tmod.vis { display:block; animation:modIn .25s ease both; }
-@keyframes modIn { from{opacity:0;transform:scale(.96)} to{opacity:1;transform:none} }
-.tmod:hover { background:rgba(61,255,144,.07); border-color:rgba(61,255,144,.2); }
+.tmod:hover { background:rgba(61,255,144,.04); border-color:rgba(61,255,144,.15); }
+
+.tmod.vis { animation:modIn .3s both; }
+@keyframes modIn { from{opacity:0;transform:scale(.9)} to{opacity:1;transform:scale(1)} }
+
 .tmod-n {
   font-family:'JetBrains Mono', monospace;
-  font-size:.72rem; font-weight:700; color:var(--green);
-  letter-spacing:.06em; margin-bottom:4px;
+  font-size:.68rem; font-weight:700; color:var(--text); letter-spacing:.04em;
 }
 .tmod-d { font-size:.7rem; color:var(--dim2); line-height:1.4; }
+
 .tmod-tog {
   position:absolute; top:12px; right:12px;
-  width:26px; height:14px; border-radius:7px;
-  background:rgba(255,255,255,.08); border:none; cursor:none;
-  transition:background .2s;
+  width:28px; height:16px; border-radius:8px;
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1);
+  cursor:none; transition:all .2s;
 }
 .tmod-tog::after {
   content:''; position:absolute; top:2px; left:2px;
   width:10px; height:10px; border-radius:50%;
-  background:rgba(255,255,255,.3); transition:transform .2s, background .2s;
+  background:var(--dim2); transition:all .2s;
 }
-.tmod-tog.on { background:rgba(61,255,144,.3); }
-.tmod-tog.on::after { transform:translateX(12px); background:var(--green); box-shadow:0 0 6px var(--green); }
+.tmod-tog.on { background:rgba(61,255,144,.2); border-color:rgba(61,255,144,.4); }
+.tmod-tog.on::after { left:14px; background:var(--green); box-shadow:0 0 6px var(--green); }
 
 .term-footer {
-  padding:12px 20px;
-  border-top:1px solid rgba(61,255,144,.07);
   display:flex; align-items:center; gap:8px;
+  padding:10px 18px;
+  border-top:1px solid rgba(255,255,255,.04);
   font-family:'JetBrains Mono', monospace;
-  font-size:.62rem; color:rgba(61,255,144,.35);
+  font-size:.62rem; color:var(--dim2);
 }
 .cursor-blink {
-  display:inline-block; width:7px; height:12px;
-  background:var(--green); opacity:.7;
-  animation:cb 1.1s step-end infinite;
-  vertical-align:middle;
+  display:inline-block; width:7px; height:13px;
+  background:var(--green); opacity:.8;
+  animation:blink .9s step-end infinite;
 }
-@keyframes cb { 0%,100%{opacity:.7} 50%{opacity:0} }
 
 /* ════════════════════════════════════════
    CHANGELOG
@@ -563,7 +565,6 @@ nav { display:flex; align-items:center; gap:4px; }
 }
 .cl-left { position:sticky; top:100px; }
 
-.cl-list { display:flex; flex-direction:column; }
 .cl-item {
   display:grid; grid-template-columns:auto 1fr;
   gap:24px; padding:32px 0;
@@ -905,19 +906,19 @@ footer {
       <div class="ld-r"></div>
       <div class="ld-r"></div>
       <div class="ld-core">
-        <div class="ld-logo">F</div>
+        <div class="ld-logo">⬡</div>
       </div>
     </div>
-    <div class="ld-title">FLORES</div>
-    <div class="ld-sub">Подготовка клиента</div>
+    <div class="ld-title">FLORES LOADER</div>
+    <div class="ld-sub">Подготовка установки</div>
     <div class="ld-pct" id="ldPct">0%</div>
     <div class="ld-bar-wrap"><div class="ld-bar" id="ldBar"></div></div>
     <div class="ld-status" id="ldStat">Инициализация...</div>
   </div>
   <div class="ld-done" id="ldDone">
     <div class="ld-check">✦</div>
-    <div class="ld-done-txt">Клиент готов к скачиванию</div>
-    <a href="https://dropmefiles.com/f5pcV" target="_blank" class="ld-go">⬇ Скачать Flores</a>
+    <div class="ld-done-txt">Лоадер готов к скачиванию</div>
+    <a href="#" class="ld-go" onclick="closeLd();return false">⬇ Скачать Flores Loader</a>
   </div>
 </div>
 
@@ -927,12 +928,12 @@ footer {
   <!-- HEADER -->
   <header id="hdr">
     <a class="logo-wrap" href="#">
-      <div class="logo-gem">✦</div>
-      <div class="logo-name">FLO<span>RE</span>S</div>
+      <div class="logo-gem">⬡</div>
+      <div class="logo-name">FLORES<span>.</span>MODS</div>
     </a>
     <nav>
-      <a class="nav-link" href="#features">Фичи</a>
-      <a class="nav-link" href="#modules">Модули</a>
+      <a class="nav-link" href="#features">Возможности</a>
+      <a class="nav-link" href="#modules">Каталог</a>
       <a class="nav-link" href="#changelog">Changelog</a>
       <a class="nav-link" href="#faq">FAQ</a>
       <a class="nav-link" href="https://discord.gg" target="_blank">Discord</a>
@@ -947,28 +948,28 @@ footer {
       <div class="hero-left">
         <div class="hero-badge">
           <span class="badge-dot"></span>
-          v2.4.1 — Live now
+          v3.1.0 — Обновлено сегодня
         </div>
 
         <h1 class="hero-title">
-          <span class="stroke">MINE</span>
-          <span class="green">CRAFT</span>
-          CLIENT
+          <span class="stroke">MOD</span>
+          <span class="green">LOADER</span>
+          PRO
         </h1>
 
         <p class="hero-sub">
-          <strong>Flores</strong> — элегантный чит-клиент нового поколения.
-          120+ модулей, умный обход анти-чит систем,
-          поддержка Forge и Fabric от 1.8 до 1.20.
+          <strong>Flores Loader</strong> — умный менеджер модов для Minecraft.
+          Установка в один клик, авто-зависимости, профили сборок
+          и поддержка Forge и Fabric от 1.7 до 1.21.
         </p>
 
         <div class="hero-tags">
-          <span class="tag">1.8 → 1.20</span>
-          <span class="tag c-cyan">Bypass AC</span>
+          <span class="tag">1.7 → 1.21</span>
+          <span class="tag c-cyan">Авто-зависимости</span>
           <span class="tag">Forge / Fabric</span>
-          <span class="tag c-pink">ESP & Aimbot</span>
-          <span class="tag c-gold">Free</span>
-          <span class="tag">HyPixel Ready</span>
+          <span class="tag c-pink">8 400+ модов</span>
+          <span class="tag c-gold">Бесплатно</span>
+          <span class="tag">Modrinth &amp; CurseForge</span>
         </div>
 
         <div class="hero-btns">
@@ -977,7 +978,7 @@ footer {
             Скачать бесплатно
           </button>
           <a href="#features" class="btn-secondary">
-            Посмотреть фичи →
+            Смотреть возможности →
           </a>
         </div>
       </div>
@@ -987,43 +988,34 @@ footer {
         <div class="orb-wrap">
           <div class="orb-bg"></div>
           <svg class="orb-svg" viewBox="0 0 380 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Outer rings -->
-            <circle cx="190" cy="190" r="178" stroke="rgba(61,255,144,0.06)" stroke-width="1"/>
-            <circle cx="190" cy="190" r="154" stroke="rgba(61,255,144,0.08)" stroke-width="1"/>
-            <circle cx="190" cy="190" r="128" stroke="rgba(0,232,204,0.07)" stroke-width="1"/>
+            <!-- Outer ring -->
+            <circle cx="190" cy="190" r="178" stroke="rgba(61,255,144,0.07)" stroke-width="1"/>
+            <circle cx="190" cy="190" r="150" stroke="rgba(0,232,204,0.06)" stroke-width="1" stroke-dasharray="4 8"/>
+            <circle cx="190" cy="190" r="120" stroke="rgba(61,255,144,0.1)" stroke-width="1"/>
 
-            <!-- Spinning arc 1 -->
-            <circle cx="190" cy="190" r="178" stroke="#3dff90" stroke-width="1.5"
-              stroke-dasharray="90 1030" stroke-linecap="round"
-              style="filter:drop-shadow(0 0 6px #3dff90);animation:spinRing1 4s linear infinite"/>
-            <!-- Spinning arc 2 -->
-            <circle cx="190" cy="190" r="154" stroke="#00e8cc" stroke-width="1"
-              stroke-dasharray="55 860" stroke-linecap="round"
-              style="filter:drop-shadow(0 0 4px #00e8cc);animation:spinRing1 7s linear infinite reverse"/>
-            <!-- Spinning arc 3 -->
-            <circle cx="190" cy="190" r="128" stroke="#ff2d72" stroke-width="0.8"
-              stroke-dasharray="35 720" stroke-linecap="round"
-              style="filter:drop-shadow(0 0 4px #ff2d72);animation:spinRing1 5s linear infinite"/>
-
-            <!-- Petals — outer ring -->
-            <g opacity="0.2" fill="none" stroke="#3dff90" stroke-width="0.8">
-              <ellipse cx="190" cy="78" rx="11" ry="26" transform="rotate(0 190 190)"/>
-              <ellipse cx="190" cy="78" rx="11" ry="26" transform="rotate(45 190 190)"/>
-              <ellipse cx="190" cy="78" rx="11" ry="26" transform="rotate(90 190 190)"/>
-              <ellipse cx="190" cy="78" rx="11" ry="26" transform="rotate(135 190 190)"/>
-              <ellipse cx="190" cy="78" rx="11" ry="26" transform="rotate(180 190 190)"/>
-              <ellipse cx="190" cy="78" rx="11" ry="26" transform="rotate(225 190 190)"/>
-              <ellipse cx="190" cy="78" rx="11" ry="26" transform="rotate(270 190 190)"/>
-              <ellipse cx="190" cy="78" rx="11" ry="26" transform="rotate(315 190 190)"/>
+            <!-- Spinning ring -->
+            <g style="transform-origin:190px 190px;animation:spinRing1 18s linear infinite">
+              <circle cx="190" cy="190" r="165" stroke="rgba(61,255,144,0.08)" stroke-width="1" stroke-dasharray="12 30"/>
             </g>
 
-            <!-- Cross/grid lines -->
-            <line x1="190" y1="12" x2="190" y2="78" stroke="rgba(61,255,144,0.12)" stroke-width="1"/>
-            <line x1="190" y1="302" x2="190" y2="368" stroke="rgba(61,255,144,0.12)" stroke-width="1"/>
-            <line x1="12" y1="190" x2="78" y2="190" stroke="rgba(61,255,144,0.12)" stroke-width="1"/>
-            <line x1="302" y1="190" x2="368" y2="190" stroke="rgba(61,255,144,0.12)" stroke-width="1"/>
+            <!-- Hex grid pattern -->
+            <g opacity="0.15" stroke="rgba(61,255,144,0.4)" stroke-width="0.8">
+              <!-- Hexagon shapes -->
+              <polygon points="190,100 224,120 224,160 190,180 156,160 156,120" fill="none"/>
+              <polygon points="190,200 224,220 224,260 190,280 156,260 156,220" fill="none"/>
+              <polygon points="130,150 164,170 164,210 130,230 96,210 96,170" fill="none"/>
+              <polygon points="250,150 284,170 284,210 250,230 216,210 216,170" fill="none"/>
+            </g>
 
-            <!-- Corner ticks -->
+            <!-- Module nodes (orbiting dots) -->
+            <g style="transform-origin:190px 190px;animation:spinRing1 12s linear infinite">
+              <circle cx="190" cy="25"  r="5" fill="#3dff90" style="filter:drop-shadow(0 0 6px #3dff90)"/>
+              <circle cx="190" cy="355" r="3" fill="rgba(0,232,204,0.5)"/>
+              <circle cx="25"  cy="190" r="3" fill="rgba(255,200,50,0.5)"/>
+              <circle cx="355" cy="190" r="4" fill="rgba(176,110,255,0.5)" style="filter:drop-shadow(0 0 4px #b06eff)"/>
+            </g>
+
+            <!-- Corner brackets -->
             <g stroke="rgba(61,255,144,0.2)" stroke-width="1.5" stroke-linecap="round">
               <path d="M60 40 L40 40 L40 60"/>
               <path d="M320 40 L340 40 L340 60"/>
@@ -1031,24 +1023,24 @@ footer {
               <path d="M320 340 L340 340 L340 320"/>
             </g>
 
-            <!-- Center flower -->
-            <circle cx="190" cy="190" r="38" fill="rgba(61,255,144,0.05)" stroke="rgba(61,255,144,0.3)" stroke-width="1"/>
-            <circle cx="190" cy="190" r="18" fill="rgba(61,255,144,0.12)"/>
-            <circle cx="190" cy="190" r="9" fill="#3dff90" style="filter:drop-shadow(0 0 10px #3dff90)"/>
+            <!-- Cross lines -->
+            <line x1="190" y1="12" x2="190" y2="78" stroke="rgba(61,255,144,0.12)" stroke-width="1"/>
+            <line x1="190" y1="302" x2="190" y2="368" stroke="rgba(61,255,144,0.12)" stroke-width="1"/>
+            <line x1="12" y1="190" x2="78" y2="190" stroke="rgba(61,255,144,0.12)" stroke-width="1"/>
+            <line x1="302" y1="190" x2="368" y2="190" stroke="rgba(61,255,144,0.12)" stroke-width="1"/>
 
-            <!-- Center petals -->
-            <ellipse cx="190" cy="162" rx="7" ry="14" fill="rgba(0,232,204,0.55)" transform="rotate(0 190 190)"/>
-            <ellipse cx="190" cy="162" rx="7" ry="14" fill="rgba(61,255,144,0.5)" transform="rotate(60 190 190)"/>
-            <ellipse cx="190" cy="162" rx="7" ry="14" fill="rgba(255,200,50,0.45)" transform="rotate(120 190 190)"/>
-            <ellipse cx="190" cy="162" rx="7" ry="14" fill="rgba(0,232,204,0.55)" transform="rotate(180 190 190)"/>
-            <ellipse cx="190" cy="162" rx="7" ry="14" fill="rgba(61,255,144,0.5)" transform="rotate(240 190 190)"/>
-            <ellipse cx="190" cy="162" rx="7" ry="14" fill="rgba(255,45,114,0.5)" transform="rotate(300 190 190)"/>
+            <!-- Center core -->
+            <circle cx="190" cy="190" r="42" fill="rgba(61,255,144,0.05)" stroke="rgba(61,255,144,0.25)" stroke-width="1"/>
+            <circle cx="190" cy="190" r="24" fill="rgba(61,255,144,0.1)"/>
+            <circle cx="190" cy="190" r="10" fill="#3dff90" style="filter:drop-shadow(0 0 14px #3dff90)"/>
 
-            <!-- Dot markers on outer ring -->
-            <circle cx="190" cy="12"  r="3" fill="#3dff90" style="filter:drop-shadow(0 0 6px #3dff90)"/>
-            <circle cx="190" cy="368" r="2" fill="rgba(61,255,144,0.4)"/>
-            <circle cx="12"  cy="190" r="2" fill="rgba(61,255,144,0.4)"/>
-            <circle cx="368" cy="190" r="2" fill="rgba(61,255,144,0.4)"/>
+            <!-- Petals / segments -->
+            <ellipse cx="190" cy="158" rx="7" ry="16" fill="rgba(0,232,204,0.5)"  transform="rotate(0   190 190)"/>
+            <ellipse cx="190" cy="158" rx="7" ry="16" fill="rgba(61,255,144,0.45)" transform="rotate(60  190 190)"/>
+            <ellipse cx="190" cy="158" rx="7" ry="16" fill="rgba(255,200,50,0.4)"  transform="rotate(120 190 190)"/>
+            <ellipse cx="190" cy="158" rx="7" ry="16" fill="rgba(0,232,204,0.5)"   transform="rotate(180 190 190)"/>
+            <ellipse cx="190" cy="158" rx="7" ry="16" fill="rgba(176,110,255,0.4)" transform="rotate(240 190 190)"/>
+            <ellipse cx="190" cy="158" rx="7" ry="16" fill="rgba(255,45,114,0.4)"  transform="rotate(300 190 190)"/>
           </svg>
         </div>
       </div>
@@ -1072,98 +1064,98 @@ footer {
       <div class="feat-header rv">
         <div>
           <div class="label">// Возможности</div>
-          <h2 class="sec-title">Всё, что нужно<br>для <em>победы</em></h2>
+          <h2 class="sec-title">Всё для<br><em>идеальной</em> сборки</h2>
         </div>
-        <p class="sec-desc" style="margin-bottom:0">Flores объединяет мощь читов с точностью инструмента — десятки модулей, настроенных до последнего пикселя.</p>
+        <p class="sec-desc" style="margin-bottom:0">Flores Loader берёт на себя всё сложное — зависимости, конфликты, обновления. Вам остаётся только играть.</p>
       </div>
 
       <div class="bento rv">
         <!-- Hero card -->
         <div class="bc bc-hero">
-          <div class="bc-num">01 / Anti-Cheat</div>
-          <div class="bc-ico" style="background:rgba(0,232,204,.07);border-color:rgba(0,232,204,.15);">🛡️</div>
-          <h3>Anti-Cheat Bypass</h3>
-          <p>Умный обход NCP, Grim 2.0, Matrix, AAC и всех популярных систем защиты. Облачные патчи обновляются автоматически — вам не нужно ничего скачивать при каждом апдейте.</p>
-          <span class="bc-tag t-bypass">Bypass</span>
+          <div class="bc-num">01 / Авто-зависимости</div>
+          <div class="bc-ico" style="background:rgba(0,232,204,.07);border-color:rgba(0,232,204,.15);">🔗</div>
+          <h3>Умные зависимости</h3>
+          <p>Лоадер автоматически определяет, какие библиотеки и API нужны каждому моду — Fabric API, Kotlin, Architectury — и устанавливает их без вашего участия. Никаких ручных поисков нужных версий.</p>
+          <span class="bc-tag t-perf">Автоматически</span>
         </div>
 
         <!-- Tall card -->
         <div class="bc bc-tall">
-          <div class="bc-num">02 / Combat</div>
-          <div class="bc-ico" style="background:rgba(255,45,114,.07);border-color:rgba(255,45,114,.15);">⚔️</div>
-          <h3>KillAura</h3>
-          <p>Мгновенная атака с настройкой CPS, радиуса и приоритета целей. Поддержка многоцелевого режима.</p>
-          <span class="bc-tag t-pvp">PvP</span>
+          <div class="bc-num">02 / Профили</div>
+          <div class="bc-ico" style="background:rgba(255,45,114,.07);border-color:rgba(255,45,114,.15);">📦</div>
+          <h3>Профили сборок</h3>
+          <p>Создавай отдельные профили под каждую задачу: выживание, PvP, стримы, скриншоты. Переключение за 1 клик.</p>
+          <span class="bc-tag t-game">Профили</span>
         </div>
 
         <!-- Wide -->
         <div class="bc bc-wide">
           <div class="bc-num">03</div>
-          <div class="bc-ico">👁️</div>
-          <h3>ESP & Tracers</h3>
-          <p>Видишь игроков, мобов и предметы сквозь стены. Box, Skeleton, Health режимы.</p>
-          <span class="bc-tag t-vis">Визуал</span>
+          <div class="bc-ico">🛡️</div>
+          <h3>Конфликт-детектор</h3>
+          <p>Перед запуском сканирует установленные моды и предупреждает о несовместимых парах. Никаких крашей.</p>
+          <span class="bc-tag t-perf">Безопасно</span>
         </div>
         <div class="bc bc-wide">
           <div class="bc-num">04</div>
           <div class="bc-ico" style="background:rgba(255,200,50,.06);border-color:rgba(255,200,50,.12);">⚡</div>
-          <h3>Speed & Flight</h3>
-          <p>Скорость и полёт с адаптивным тайминговым контролем, без флагов.</p>
-          <span class="bc-tag t-bypass">Bypass</span>
+          <h3>Мгновенные обновления</h3>
+          <p>Отслеживает обновления всех установленных модов и уведомляет одним кликом по всем сразу.</p>
+          <span class="bc-tag t-util">Авто-апдейт</span>
         </div>
 
         <!-- Normal -->
         <div class="bc bc-norm">
           <div class="bc-num">05</div>
-          <div class="bc-ico">🏗️</div>
-          <h3>Scaffold</h3>
-          <p>Авто-мост в BedWars: Eagle, Tower, SafeWalk режимы.</p>
-          <span class="bc-tag t-pvp">PvP</span>
+          <div class="bc-ico">🔍</div>
+          <h3>Поиск</h3>
+          <p>Поиск по Modrinth и CurseForge прямо в интерфейсе лоадера.</p>
+          <span class="bc-tag t-perf">Каталог</span>
         </div>
         <div class="bc bc-norm">
           <div class="bc-num">06</div>
-          <div class="bc-ico" style="background:rgba(176,110,255,.06);border-color:rgba(176,110,255,.12);">🎯</div>
-          <h3>Aimbot</h3>
-          <p>Плавный прицел с рандомизацией под живого игрока.</p>
-          <span class="bc-tag t-pvp">PvP</span>
+          <div class="bc-ico" style="background:rgba(176,110,255,.06);border-color:rgba(176,110,255,.12);">🎛️</div>
+          <h3>Config Manager</h3>
+          <p>Редактируй конфиги модов прямо в UI — без ручного открытия файлов.</p>
+          <span class="bc-tag t-util">Настройки</span>
         </div>
         <div class="bc bc-norm">
           <div class="bc-num">07</div>
-          <div class="bc-ico">🔮</div>
-          <h3>ClickGUI</h3>
-          <p>Темы, поиск, горячие клавиши — всё на месте.</p>
-          <span class="bc-tag t-util">Утилита</span>
+          <div class="bc-ico">🔄</div>
+          <h3>Резервные копии</h3>
+          <p>Автоматически делает бэкап профиля перед обновлением.</p>
+          <span class="bc-tag t-util">Бэкап</span>
         </div>
 
         <!-- Full-width -->
         <div class="bc bc-full" style="padding:24px 28px; display:flex; align-items:center; gap:40px; flex-wrap:wrap;">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--dim2);letter-spacing:.15em">И ещё 113 модулей →</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--dim2);letter-spacing:.15em">И ещё больше возможностей →</div>
           <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <span class="bc-tag t-bypass" style="margin-top:0">AutoTotem</span>
-            <span class="bc-tag t-vis" style="margin-top:0">Freecam</span>
-            <span class="bc-tag t-pvp" style="margin-top:0">WTap</span>
-            <span class="bc-tag t-util" style="margin-top:0">AutoArmor</span>
-            <span class="bc-tag t-bypass" style="margin-top:0">NoFall</span>
-            <span class="bc-tag t-vis" style="margin-top:0">FullBright</span>
-            <span class="bc-tag t-util" style="margin-top:0">FastEat</span>
-            <span class="bc-tag t-pvp" style="margin-top:0">Criticals</span>
+            <span class="bc-tag t-perf" style="margin-top:0">Java Auto-Detect</span>
+            <span class="bc-tag t-vis" style="margin-top:0">Shader Packs</span>
+            <span class="bc-tag t-game" style="margin-top:0">Resource Packs</span>
+            <span class="bc-tag t-util" style="margin-top:0">Data Packs</span>
+            <span class="bc-tag t-perf" style="margin-top:0">Forge &amp; Fabric</span>
+            <span class="bc-tag t-vis" style="margin-top:0">Screenshot Mode</span>
+            <span class="bc-tag t-util" style="margin-top:0">Export Profile</span>
+            <span class="bc-tag t-game" style="margin-top:0">Import .mrpack</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- MODULES -->
+  <!-- MODULES / MOD CATALOG -->
   <section class="modules-sec" id="modules">
     <div class="inner">
       <div class="modules-layout">
         <div class="modules-info rv-l">
-          <div class="label">// Модули</div>
-          <h2 class="sec-title">120+<br>модулей</h2>
-          <p class="sec-desc">Переключай прямо в игре — ClickGUI или биндинг клавиш. Каждый модуль настраивается.</p>
+          <div class="label">// Каталог модов</div>
+          <h2 class="sec-title">8 400+<br>модов</h2>
+          <p class="sec-desc">Устанавливай прямо из лоадера. Включай и выключай прямо в интерфейсе.</p>
           <div class="mod-count-badge">
-            <strong>120</strong>
-            <span>модулей в 6 категориях</span>
+            <strong>8 400</strong>
+            <span>модов в каталоге</span>
           </div>
         </div>
         <div class="rv">
@@ -1172,16 +1164,16 @@ footer {
               <div class="term-dot"></div>
               <div class="term-dot"></div>
               <div class="term-dot"></div>
-              <span class="term-path">flores/modules/list.sh</span>
+              <span class="term-path">flores-loader/catalog/browse.sh</span>
             </div>
             <div class="term-cats" id="termCats"></div>
             <div class="term-body">
               <div class="term-grid" id="termGrid"></div>
             </div>
             <div class="term-footer">
-              <span>flores@client:~$</span>
+              <span>flores@loader:~$</span>
               <span class="cursor-blink"></span>
-              <span id="termCount" style="margin-left:auto">loading...</span>
+              <span id="termCount" style="margin-left:auto">загрузка...</span>
             </div>
           </div>
         </div>
@@ -1196,54 +1188,54 @@ footer {
         <div class="cl-left rv-l">
           <div class="label">// История</div>
           <h2 class="sec-title">Change<br><em>log</em></h2>
-          <p class="sec-desc" style="margin-top:16px">Flores обновляется регулярно. Следи за патчами.</p>
+          <p class="sec-desc" style="margin-top:16px">Flores Loader обновляется регулярно. Следи за патчами.</p>
         </div>
         <div class="cl-list rv">
           <div class="cl-item">
             <div class="cl-dot-wrap"><div class="cl-dot maj"></div><div class="cl-line"></div></div>
             <div>
-              <div class="cl-ver">v2.4.1</div>
-              <div class="cl-date">29 Марта, 2025</div>
+              <div class="cl-ver">v3.1.0</div>
+              <div class="cl-date">1 Апреля, 2025</div>
               <ul class="cl-notes">
-                <li>Новый обход Grim 2.0 — флаги снижены до минимума</li>
-                <li>Scaffold: Eagle + SafeWalk объединены в один модуль</li>
-                <li>ESP: режим Skeleton с HP-градиентом</li>
-                <li>ClickGUI: новая тема «Blossom» с анимацией</li>
+                <li>Поддержка Minecraft 1.21.x — Forge и Fabric</li>
+                <li>Новый Config Manager — редактирование конфигов прямо в UI</li>
+                <li>Улучшен конфликт-детектор: теперь показывает причину несовместимости</li>
+                <li>Новый каталог шейдеров с превью и рейтингами</li>
               </ul>
             </div>
           </div>
           <div class="cl-item">
             <div class="cl-dot-wrap"><div class="cl-dot min"></div><div class="cl-line"></div></div>
             <div>
-              <div class="cl-ver">v2.3.8</div>
-              <div class="cl-date">14 Марта, 2025</div>
+              <div class="cl-ver">v3.0.5</div>
+              <div class="cl-date">18 Марта, 2025</div>
               <ul class="cl-notes">
-                <li>KillAura: приоритет по HP цели</li>
-                <li>AutoTotem: фикс задержки в кристальном PvP</li>
-                <li>Freecam: устранён дессинк с сервером</li>
+                <li>Исправлен краш при импорте .mrpack профилей</li>
+                <li>Ускорено сканирование зависимостей в 2 раза</li>
+                <li>Добавлен экспорт профиля в zip-архив</li>
               </ul>
             </div>
           </div>
           <div class="cl-item">
             <div class="cl-dot-wrap"><div class="cl-dot min"></div><div class="cl-line"></div></div>
             <div>
-              <div class="cl-ver">v2.3.5</div>
-              <div class="cl-date">2 Марта, 2025</div>
+              <div class="cl-ver">v3.0.0</div>
+              <div class="cl-date">4 Марта, 2025</div>
               <ul class="cl-notes">
-                <li>Поддержка Minecraft 1.20.6</li>
-                <li>Новый модуль: AntiBot — фильтрация NPC</li>
-                <li>Phase улучшен: работает на Paper-серверах</li>
+                <li>Полный редизайн интерфейса — темы, иконки, анимации</li>
+                <li>Прямая интеграция с Modrinth и CurseForge API</li>
+                <li>Система профилей: создание, клонирование, экспорт</li>
               </ul>
             </div>
           </div>
           <div class="cl-item">
             <div class="cl-dot-wrap"><div class="cl-dot pat"></div></div>
             <div>
-              <div class="cl-ver">v2.3.0</div>
-              <div class="cl-date">18 Февраля, 2025</div>
+              <div class="cl-ver">v2.9.2</div>
+              <div class="cl-date">20 Февраля, 2025</div>
               <ul class="cl-notes">
-                <li>Полный рефакторинг рендеринга — +40% FPS</li>
-                <li>Добавлены модули: Nuker, Excavator, FastPlace</li>
+                <li>Авто-резервные копии перед обновлением модов</li>
+                <li>Поддержка Data Packs и Resource Packs в интерфейсе</li>
               </ul>
             </div>
           </div>
@@ -1263,28 +1255,28 @@ footer {
         </div>
         <div class="faq-list rv">
           <div class="faq-item">
-            <button class="faq-q" onclick="toggleFaq(this)">Flores бесплатный?<span class="faq-icon">+</span></button>
-            <div class="faq-a"><p>Да. Основная версия полностью бесплатна. Есть Premium с ранним доступом к патчам и эксклюзивными модулями, но бесплатная сборка покрывает все базовые нужды.</p></div>
+            <button class="faq-q" onclick="toggleFaq(this)">Flores Loader бесплатный?<span class="faq-icon">+</span></button>
+            <div class="faq-a"><p>Да. Лоадер полностью бесплатен. Есть опциональная подписка Plus с облачными профилями и ранним доступом к новым функциям, но базовая версия покрывает все нужды.</p></div>
           </div>
           <div class="faq-item">
-            <button class="faq-q" onclick="toggleFaq(this)">Какие версии Minecraft?<span class="faq-icon">+</span></button>
-            <div class="faq-a"><p>Flores поддерживает Minecraft 1.8 — 1.20.6. Обновления выходят регулярно и поддержка новых версий добавляется быстро.</p></div>
+            <button class="faq-q" onclick="toggleFaq(this)">Какие версии Minecraft поддерживаются?<span class="faq-icon">+</span></button>
+            <div class="faq-a"><p>Flores Loader поддерживает Minecraft 1.7 — 1.21.x для Forge и Fabric. Поддержка новых версий добавляется в течение нескольких дней после релиза Mojang.</p></div>
           </div>
           <div class="faq-item">
-            <button class="faq-q" onclick="toggleFaq(this)">Обнаруживается VAC или EAC?<span class="faq-icon">+</span></button>
-            <div class="faq-a"><p>Flores разработан с обходом VAC. Minecraft не использует EAC. Рекомендуем использовать дополнительный аккаунт — мы не несём ответственности за блокировки.</p></div>
+            <button class="faq-q" onclick="toggleFaq(this)">Чем это отличается от обычной установки?<span class="faq-icon">+</span></button>
+            <div class="faq-a"><p>При обычной установке нужно вручную искать моды, проверять совместимость версий, устанавливать зависимости и следить за обновлениями. Flores Loader делает всё это автоматически — достаточно найти нужный мод и нажать «Установить».</p></div>
           </div>
           <div class="faq-item">
-            <button class="faq-q" onclick="toggleFaq(this)">Работает на HyPixel / Grim?<span class="faq-icon">+</span></button>
-            <div class="faq-a"><p>Большинство модулей работают на HyPixel, Mineplex и Grim 2.0. Обходы обновляются через облако — нет нужды скачивать клиент при каждом патче.</p></div>
+            <button class="faq-q" onclick="toggleFaq(this)">Как создать несколько профилей?<span class="faq-icon">+</span></button>
+            <div class="faq-a"><p>В разделе «Профили» нажми «Новый профиль», выбери версию Minecraft и загрузчик (Forge или Fabric). Можно клонировать существующий профиль и добавить другой набор модов. Профили переключаются мгновенно.</p></div>
           </div>
           <div class="faq-item">
-            <button class="faq-q" onclick="toggleFaq(this)">Как установить?<span class="faq-icon">+</span></button>
-            <div class="faq-a"><p>Скачай .jar, положи в папку mods Forge или Fabric, запусти Minecraft. Нажми <strong style="color:var(--green);font-family:'JetBrains Mono',monospace">RIGHT_SHIFT</strong> чтобы открыть ClickGUI.</p></div>
+            <button class="faq-q" onclick="toggleFaq(this)">Что делать при конфликте модов?<span class="faq-icon">+</span></button>
+            <div class="faq-a"><p>Конфликт-детектор покажет какие именно моды конфликтуют и по какой причине. Лоадер предложит варианты решения — отключить один из модов или установить совместимую версию.</p></div>
           </div>
           <div class="faq-item">
-            <button class="faq-q" onclick="toggleFaq(this)">Есть ли вирусы в файле?<span class="faq-icon">+</span></button>
-            <div class="faq-a"><p>Нет. Flores — открытый исходный код на GitHub. Проверяй хеш файла на нашем сайте. Скачивай только с официальной страницы.</p></div>
+            <button class="faq-q" onclick="toggleFaq(this)">Откуда берутся моды?<span class="faq-icon">+</span></button>
+            <div class="faq-a"><p>Лоадер подключён напрямую к <strong style="color:var(--green)">Modrinth</strong> и <strong style="color:var(--green)">CurseForge</strong> — двум крупнейшим официальным платформам для Minecraft-модов. Только проверенный контент от авторов.</p></div>
           </div>
         </div>
       </div>
@@ -1298,7 +1290,7 @@ footer {
         <div class="cta-left">
           <div class="cta-label">// Сообщество</div>
           <div class="cta-title">Войди в Discord</div>
-          <p class="cta-sub">12 000+ игроков уже внутри. Обновления, поддержка,<br>эксклюзивные обходы и сборки — только здесь.</p>
+          <p class="cta-sub">9 000+ игроков и авторов сборок уже внутри. Готовые профили,<br>рекомендации модов, помощь с установкой — только здесь.</p>
         </div>
         <div class="cta-right">
           <a href="https://discord.gg" target="_blank" class="btn-discord">
@@ -1317,15 +1309,15 @@ footer {
       <div class="foot-top">
         <div class="foot-brand">
           <div class="logo-wrap" style="pointer-events:none">
-            <div class="logo-gem">✦</div>
-            <div class="logo-name">FLO<span>RE</span>S</div>
+            <div class="logo-gem">⬡</div>
+            <div class="logo-name">FLORES<span>.</span>MODS</div>
           </div>
-          <p>Элегантный Minecraft-клиент. Лёгкий, быстрый, неуловимый. Только для образовательных целей.</p>
+          <p>Умный менеджер модов для Minecraft. Устанавливай быстро, играй без проблем.</p>
         </div>
         <div class="foot-col">
           <h4>Навигация</h4>
           <a href="#features">Возможности</a>
-          <a href="#modules">Модули</a>
+          <a href="#modules">Каталог</a>
           <a href="#changelog">Changelog</a>
           <a href="#faq">FAQ</a>
         </div>
@@ -1338,13 +1330,13 @@ footer {
         <div class="foot-col">
           <h4>Поддержка</h4>
           <a href="#">Установка</a>
-          <a href="#">Вирус-скан</a>
+          <a href="#">Документация</a>
           <a href="#">Обновления</a>
         </div>
       </div>
       <div class="foot-bottom">
-        <span>© 2025 Flores Client — For educational purposes only</span>
-        <span>Not affiliated with Mojang AB</span>
+        <span>© 2025 Flores Loader — Open Source Mod Manager</span>
+        <span>Not affiliated with Mojang AB · Modrinth · CurseForge</span>
       </div>
     </div>
   </footer>
@@ -1390,7 +1382,7 @@ let W,H,pts=[];
 function resize(){ W=cvs.width=innerWidth; H=cvs.height=innerHeight; }
 resize(); addEventListener('resize',resize);
 function mkPt(){
-  return {x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.22,vy:-(Math.random()*.3+.06),r:Math.random()*1.4+.2,a:Math.random()*.7+.1,c:['61,255,144','0,232,204','255,200,50','255,45,114'][Math.random()*4|0]};
+  return {x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.22,vy:-(Math.random()*.3+.06),r:Math.random()*1.4+.2,a:Math.random()*.7+.1,c:['61,255,144','0,232,204','255,200,50','176,110,255'][Math.random()*4|0]};
 }
 for(let i=0;i<80;i++) pts.push(mkPt());
 function draw(){
@@ -1422,18 +1414,17 @@ document.querySelectorAll('.rv,.rv-l').forEach(e=>obs.observe(e));
 
 /* ═══ TICKER ═══ */
 const tdata = [
-  {l:'Пользователей',v:'12 400+'},
-  {l:'Bypass Rate',v:'97%'},
-  {l:'Модулей',v:'120+'},
-  {l:'Версия',v:'2.4.1'},
+  {l:'Модов в каталоге',v:'8 400+'},
+  {l:'Загрузок',v:'240k+'},
+  {l:'Категорий',v:'6'},
+  {l:'Версия',v:'3.1.0'},
   {l:'Forge',v:'Ready'},
   {l:'Fabric',v:'Ready'},
-  {l:'1.8 → 1.20',v:'Support'},
-  {l:'HyPixel',v:'Compatible'},
-  {l:'GitHub',v:'OpenSource'},
+  {l:'1.7 → 1.21',v:'Support'},
+  {l:'Modrinth',v:'Connected'},
+  {l:'CurseForge',v:'Connected'},
 ];
 const ti = document.getElementById('ticker-inner');
-// duplicate for seamless loop
 [...tdata,...tdata].forEach(d=>{
   const s = document.createElement('span');
   s.className='tick-item';
@@ -1441,20 +1432,76 @@ const ti = document.getElementById('ticker-inner');
   ti.appendChild(s);
 });
 
-/* ═══ MODULES ═══ */
+/* ═══ MOD CATALOG ═══ */
 const mods = {
-  Combat:  [{n:'KillAura',d:'Авто-атака в радиусе'},{n:'Aimbot',d:'Плавный прицел'},{n:'Criticals',d:'Всегда крит'},{n:'Velocity',d:'Снижение KB'},{n:'AutoClicker',d:'Авто ЛКМ/ПКМ'},{n:'WTap',d:'W-Tap авто'},{n:'BowAimbot',d:'Прицел лука'},{n:'MultiAura',d:'Несколько целей'},{n:'Reach',d:'Увеличенный радиус'},{n:'HitboxExpand',d:'Расширение хитбокса'}],
-  Movement:[{n:'Speed',d:'Ускорение'},{n:'Flight',d:'Полёт'},{n:'BunnyHop',d:'Прыжок-серия'},{n:'Sprint',d:'Всегда спринт'},{n:'NoSlow',d:'Без замедления'},{n:'LongJump',d:'Длинный прыжок'},{n:'Glide',d:'Мягкое падение'},{n:'SafeWalk',d:'Без падений'}],
-  Render:  [{n:'ESP',d:'Сквозь стены'},{n:'Tracers',d:'Линии к целям'},{n:'FullBright',d:'Яркость везде'},{n:'Chams',d:'Подсветка моделей'},{n:'HUD',d:'Кастомный UI'},{n:'Nametags',d:'Теги с HP'},{n:'Freecam',d:'Свободная камера'},{n:'AntiBlind',d:'Без слепоты'},{n:'NoFog',d:'Без тумана'},{n:'Zoom',d:'Приближение'}],
-  Player:  [{n:'AutoTotem',d:'Авто тотем'},{n:'AutoArmor',d:'Авто броня'},{n:'FastEat',d:'Быстрая еда'},{n:'NoFall',d:'Без урона падения'},{n:'Regen',d:'Быстрый хил'},{n:'AutoPot',d:'Авто зелья'},{n:'InvManager',d:'Авто-инвентарь'}],
-  World:   [{n:'Nuker',d:'Авто-разрушение'},{n:'Excavator',d:'Быстрая шахта'},{n:'FastPlace',d:'Быстрая установка'},{n:'Scaffold',d:'Авто-мост'},{n:'Tower',d:'Быстрая башня'},{n:'ChestStealer',d:'Авто-сундук'}],
-  Misc:    [{n:'AntiBot',d:'Фильтр NPC'},{n:'Phase',d:'Сквозь блоки'},{n:'NameProtect',d:'Скрыть ник'},{n:'ChatFilter',d:'Фильтр чата'},{n:'AutoSprint',d:'Спринт всегда'},{n:'MiddleClick',d:'Авто средний клик'}],
+  Performance: [
+    {n:'Sodium',d:'Рендер-движок +400% FPS'},
+    {n:'Lithium',d:'Оптимизация серверной логики'},
+    {n:'FerriteCore',d:'Снижение RAM в 2–3 раза'},
+    {n:'Starlight',d:'Перезапись движка освещения'},
+    {n:'EntityCulling',d:'Пропуск рендера сущностей'},
+    {n:'MemoryLeakFix',d:'Устранение утечек памяти'},
+    {n:'C2ME',d:'Параллельная генерация чанков'},
+    {n:'Krypton',d:'Оптимизация сетевого стека'},
+    {n:'ImmediatelyFast',d:'Ускорение immediate mode'},
+    {n:'LazyDFU',d:'Быстрый запуск игры'},
+  ],
+  Шейдеры: [
+    {n:'Iris Shaders',d:'Shader-движок для Fabric'},
+    {n:'Complementary',d:'Красивые и оптимизированные'},
+    {n:'BSL Shaders',d:'Популярный пак шейдеров'},
+    {n:'Sildur\'s Vibrant',d:'Яркие и насыщенные'},
+    {n:'SEUS PTGI',d:'Трассировка пути'},
+    {n:'AstraLex',d:'Реалистичный свет'},
+    {n:'Rethinking Voxels',d:'Вокселевые тени'},
+    {n:'MakeUp Ultra Fast',d:'Шейдеры для слабых ПК'},
+  ],
+  Геймплей: [
+    {n:'Create',d:'Механизмы и машины'},
+    {n:'Botania',d:'Магия цветов'},
+    {n:'Waystones',d:'Телепорт-камни'},
+    {n:'JEI',d:'Просмотр рецептов'},
+    {n:'Farmer\'s Delight',d:'Расширение кулинарии'},
+    {n:'Twilight Forest',d:'Новое измерение'},
+    {n:'Mekanism',d:'Технологии и машины'},
+    {n:'Applied Energistics',d:'Хранение и автоматизация'},
+  ],
+  Мир: [
+    {n:'Terralith',d:'Потрясающие биомы'},
+    {n:'Alex\'s Mobs',d:'80+ новых мобов'},
+    {n:'Oh The Biomes',d:'Сотни биомов'},
+    {n:'Tectonic',d:'Эпичный рельеф'},
+    {n:'Geophilic',d:'Деревья и растения'},
+    {n:'Ecotones',d:'Переходные биомы'},
+    {n:'Biomes O\'Plenty',d:'Классика биомов'},
+    {n:'William Wythers',d:'Переработанные биомы'},
+  ],
+  Утилиты: [
+    {n:'Xaero\'s Map',d:'Мини-карта с иконками'},
+    {n:'Xaero\'s World Map',d:'Полная карта мира'},
+    {n:'REI',d:'Просмотр рецептов 2.0'},
+    {n:'Inventory HUD+',d:'Инвентарь на экране'},
+    {n:'AppleSkin',d:'Насыщение и регенерация'},
+    {n:'ModMenu',d:'Управление модами в игре'},
+    {n:'ClothConfig',d:'Config API'},
+    {n:'LambDynamicLights',d:'Динамическое освещение'},
+  ],
+  Визуал: [
+    {n:'Distant Horizons',d:'Отдалённый LOD рендер'},
+    {n:'Continuity',d:'Слитные текстуры стекла'},
+    {n:'Presence Footsteps',d:'Звуки шагов по типу блока'},
+    {n:'BetterF3',d:'Красивый дебаг-экран'},
+    {n:'CameraUtils',d:'Управление камерой'},
+    {n:'Blur+',d:'Размытие открытых меню'},
+    {n:'Indium',d:'Rendering API addon'},
+    {n:'Animatica',d:'Анимированные текстуры'},
+  ],
 };
 
 const cats = document.getElementById('termCats');
 const grid = document.getElementById('termGrid');
 const termCount = document.getElementById('termCount');
-let activeCat = 'Combat';
+let activeCat = 'Performance';
 
 Object.keys(mods).forEach(cat=>{
   const b = document.createElement('button');
@@ -1477,9 +1524,9 @@ function switchMod(cat,btn){
     c.innerHTML=`<div class="tmod-n">${m.n}</div><div class="tmod-d">${m.d}</div><button class="tmod-tog" onclick="this.classList.toggle('on')"></button>`;
     grid.appendChild(c);
   });
-  termCount.textContent=`${list.length} modules loaded`;
+  termCount.textContent=`${list.length} модов в категории`;
 }
-switchMod('Combat', cats.querySelector('.tc'));
+switchMod('Performance', cats.querySelector('.tc'));
 
 /* ═══ FAQ ═══ */
 function toggleFaq(btn){
@@ -1489,7 +1536,7 @@ function toggleFaq(btn){
 }
 
 /* ═══ DOWNLOAD LOADER ═══ */
-const steps=['Инициализация модулей...','Загрузка ядра...','Обход AntiCheat...','Шифрование пакетов...','Компиляция байткода...','Инжект патча...','Верификация сборки...','Финальная проверка...','Готово ✓'];
+const steps=['Проверка Java...','Загрузка ядра лоадера...','Синхронизация каталога...','Установка зависимостей...','Настройка профиля...','Проверка совместимости...','Применение конфигурации...','Финальная проверка...','Готово ✓'];
 
 function startDl(){
   const ld=document.getElementById('loader');
@@ -1529,7 +1576,7 @@ function toast(msg){
 
 /* Version badge click */
 document.querySelector('.hero-badge').addEventListener('click',()=>{
-  navigator.clipboard?.writeText('Flores v2.4.1').then(()=>toast('Версия скопирована!'));
+  navigator.clipboard?.writeText('Flores Loader v3.1.0').then(()=>toast('Версия скопирована!'));
 });
 </script>
 </body>
